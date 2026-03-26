@@ -1,4 +1,4 @@
-package com.matheus.task_manager_api.exception;
+package com.matheus.task_manager_api.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
