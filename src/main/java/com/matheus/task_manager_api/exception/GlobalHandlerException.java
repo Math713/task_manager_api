@@ -16,7 +16,8 @@ public class GlobalHandlerException {
     @ExceptionHandler(EmailAlreadyExistsException.class)
     public ResponseEntity<ApiError> handleEmailAlreadyExisted(EmailAlreadyExistsException exception,
                                                               HttpServletRequest request) {
-        ApiError body = new ApiError(409,
+        ApiError body = new ApiError(
+                409,
                 "EMAIL_ALREADY_IN_USE",
                 exception.getMessage(),
                 request.getRequestURI());
@@ -28,7 +29,8 @@ public class GlobalHandlerException {
     public ResponseEntity<ApiError> handleInvalidToken(InvalidTokenException exception,
                                                        HttpServletRequest request) {
 
-        ApiError body = new ApiError(401,
+        ApiError body = new ApiError(
+                401,
                 "INVALID_TOKEN",
                 exception.getMessage(),
                 request.getRequestURI());
@@ -40,12 +42,55 @@ public class GlobalHandlerException {
     public ResponseEntity<ApiError> handleUserNotFound(UserNotFoundException exception,
                                                        HttpServletRequest request) {
 
-        ApiError body = new ApiError(404,
+        ApiError body = new ApiError(
+                404,
                 "NOT_FOUND",
                 exception.getMessage(),
                 request.getRequestURI());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<ApiError> handleTaskNotFound(TaskNotFoundException exception,
+                                                       HttpServletRequest request) {
+
+        ApiError body = new ApiError(
+                404,
+                "TASK_NOT_FOUND",
+                exception.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
+    }
+
+    @ExceptionHandler(ForbiddenActionException.class)
+    public ResponseEntity<ApiError> handleForbidden(ForbiddenActionException exception,
+                                                    HttpServletRequest request) {
+
+        ApiError body = new ApiError(
+                403,
+                "FORBIDDEN_ACCESS",
+                exception.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(body);
+    }
+
+    @ExceptionHandler(CustomSecurityException.class)
+    public ResponseEntity<ApiError> handleCustomSecurity(CustomSecurityException exception,
+                                                         HttpServletRequest request) {
+
+        ApiError body = new ApiError(
+                401,
+                "UNAUTHORIZED",
+                exception.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -56,7 +101,8 @@ public class GlobalHandlerException {
         exception.getBindingResult().getFieldErrors()
                 .forEach(error -> fields.putIfAbsent(error.getField(), error.getDefaultMessage()));
 
-        ApiError body = new ApiError(400,
+        ApiError body = new ApiError(
+                400,
                 "VALIDATION_ERROR",
                 "Invalid request data",
                 request.getRequestURI());
@@ -69,7 +115,8 @@ public class GlobalHandlerException {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiError> handleIllegalArgument(IllegalArgumentException exception,
                                                           HttpServletRequest request) {
-        ApiError body = new ApiError(400,
+        ApiError body = new ApiError(
+                400,
                 "BAD_REQUEST",
                 exception.getMessage(),
                 request.getRequestURI());
@@ -80,7 +127,8 @@ public class GlobalHandlerException {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGeneric(Exception exception,
                                                   HttpServletRequest request) {
-        ApiError body = new ApiError(500,
+        ApiError body = new ApiError(
+                500,
                 "INTERNAL_SERVER_ERROR",
                 "An unexpected error occurred",
                 request.getRequestURI());

@@ -3,10 +3,7 @@ package com.matheus.task_manager_api.entity;
 import com.matheus.task_manager_api.enums.TaskPriority;
 import com.matheus.task_manager_api.enums.TaskStatus;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "tasks")
+@Builder
 public class Task {
 
     @Id
