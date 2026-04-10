@@ -33,11 +33,11 @@ public class Task {
     @Column(nullable = false)
     private TaskPriority priority;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime created_at;
+    @Column(name = "created_at",nullable = false, updatable = false)
+    private LocalDateTime createdAt;
 
-    @Column
-    private LocalDateTime updated_at;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -45,9 +45,9 @@ public class Task {
 
     @PrePersist
     private void prePersist(){
-        this.created_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
     }
 
     @PreUpdate
-    private void preUpdated() { this.updated_at = LocalDateTime.now(); }
+    private void preUpdated() { this.updatedAt = LocalDateTime.now(); }
 }

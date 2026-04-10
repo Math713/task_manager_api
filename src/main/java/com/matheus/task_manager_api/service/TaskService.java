@@ -110,8 +110,8 @@ public class TaskService {
                 task.getDescription(),
                 task.getStatus(),
                 task.getPriority(),
-                task.getCreated_at(),
-                task.getUpdated_at()
+                task.getCreatedAt(),
+                task.getUpdatedAt()
         );
     }
 }
