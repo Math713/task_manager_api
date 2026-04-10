@@ -1,4 +1,4 @@
-package com.matheus.task_manager_api.config.mapper;
+package com.matheus.task_manager_api.mapper;
 
 import com.matheus.task_manager_api.dto.TaskResponse;
 import com.matheus.task_manager_api.entity.Task;

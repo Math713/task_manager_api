@@ -1,6 +1,6 @@
 package com.matheus.task_manager_api.service;
 
-import com.matheus.task_manager_api.config.mapper.TaskMapper;
+import com.matheus.task_manager_api.mapper.TaskMapper;
 import com.matheus.task_manager_api.dto.TaskRequest;
 import com.matheus.task_manager_api.dto.TaskResponse;
 import com.matheus.task_manager_api.dto.TaskUpdateRequest;

@@ -1,7 +1,7 @@
 package com.matheus.task_manager_api.service;
 
-import com.matheus.task_manager_api.config.mapper.TaskMapper;
-import com.matheus.task_manager_api.config.mapper.UserMapper;
+import com.matheus.task_manager_api.mapper.TaskMapper;
+import com.matheus.task_manager_api.mapper.UserMapper;
 import com.matheus.task_manager_api.dto.TaskResponse;
 import com.matheus.task_manager_api.dto.UserResponse;
 import com.matheus.task_manager_api.entity.User;
