@@ -1,5 +1,6 @@
 package com.matheus.task_manager_api.service;
 
+import com.matheus.task_manager_api.config.mapper.TaskMapper;
 import com.matheus.task_manager_api.dto.TaskRequest;
 import com.matheus.task_manager_api.dto.TaskResponse;
 import com.matheus.task_manager_api.dto.TaskUpdateRequest;
@@ -35,7 +36,7 @@ public class TaskService {
 
         Task savedTask = taskRepository.save(task);
 
-        return toResponse(savedTask);
+        return TaskMapper.toResponse(savedTask);
     }
 
     public Page<TaskResponse> getAll(Pageable pageable) {
@@ -43,7 +44,7 @@ public class TaskService {
 
         Page<Task> tasksByUser = taskRepository.findByUserId(user.getId(), pageable);
 
-        return tasksByUser.map(this::toResponse);
+        return tasksByUser.map(TaskMapper::toResponse);
     }
 
     public TaskResponse getById(Long id) {
@@ -51,7 +52,7 @@ public class TaskService {
 
         Task task = findTaskByIdAndUser(id, user);
 
-        return toResponse(task);
+        return TaskMapper.toResponse(task);
     }
 
     public TaskResponse update(Long id, TaskUpdateRequest updateRequest) {
@@ -72,7 +73,7 @@ public class TaskService {
             task.setStatus(updateRequest.status());
         }
 
-        return toResponse(taskRepository.save(task));
+        return TaskMapper.toResponse(taskRepository.save(task));
     }
 
     public void delete(Long id) {
@@ -101,17 +102,5 @@ public class TaskService {
         }
 
         return user;
-    }
-
-    private TaskResponse toResponse(Task task) {
-        return new TaskResponse(
-                task.getId(),
-                task.getTitle(),
-                task.getDescription(),
-                task.getStatus(),
-                task.getPriority(),
-                task.getCreatedAt(),
-                task.getUpdatedAt()
-        );
     }
 }
