@@ -68,7 +68,7 @@ public class AdminController {
     })
     @GetMapping("/tasks")
     public ResponseEntity<Page<TaskResponse>> getAllTasks(
-            @PageableDefault(size = 15, sort = "created_at", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(size = 15, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         return ResponseEntity.ok(adminService.getAllTasks(pageable));
     }

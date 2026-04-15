@@ -20,7 +20,8 @@ public class GlobalHandlerException {
                 409,
                 "EMAIL_ALREADY_IN_USE",
                 exception.getMessage(),
-                request.getRequestURI());
+                request.getRequestURI()
+        );
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
     }
@@ -33,7 +34,8 @@ public class GlobalHandlerException {
                 401,
                 "INVALID_TOKEN",
                 exception.getMessage(),
-                request.getRequestURI());
+                request.getRequestURI()
+        );
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(body);
     }
@@ -46,7 +48,8 @@ public class GlobalHandlerException {
                 404,
                 "NOT_FOUND",
                 exception.getMessage(),
-                request.getRequestURI());
+                request.getRequestURI()
+        );
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
@@ -105,7 +108,8 @@ public class GlobalHandlerException {
                 400,
                 "VALIDATION_ERROR",
                 "Invalid request data",
-                request.getRequestURI());
+                request.getRequestURI()
+        );
 
         body.setFields(fields);
 
@@ -119,7 +123,8 @@ public class GlobalHandlerException {
                 400,
                 "BAD_REQUEST",
                 exception.getMessage(),
-                request.getRequestURI());
+                request.getRequestURI()
+        );
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
@@ -127,11 +132,13 @@ public class GlobalHandlerException {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleGeneric(Exception exception,
                                                   HttpServletRequest request) {
+
         ApiError body = new ApiError(
                 500,
                 "INTERNAL_SERVER_ERROR",
                 "An unexpected error occurred",
-                request.getRequestURI());
+                request.getRequestURI()
+        );
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(body);
     }

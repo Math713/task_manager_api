@@ -7,14 +7,13 @@ import com.matheus.task_manager_api.dto.TaskUpdateRequest;
 import com.matheus.task_manager_api.entity.Task;
 import com.matheus.task_manager_api.entity.User;
 import com.matheus.task_manager_api.enums.TaskStatus;
-import com.matheus.task_manager_api.exception.CustomSecurityException;
 import com.matheus.task_manager_api.exception.ForbiddenActionException;
 import com.matheus.task_manager_api.exception.TaskNotFoundException;
 import com.matheus.task_manager_api.repository.TaskRepository;
+import com.matheus.task_manager_api.security.SecurityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,7 +23,7 @@ public class TaskService {
     private final TaskRepository taskRepository;
 
     public TaskResponse create(TaskRequest request) {
-        User user = getAuthenticadedUser();
+        User user = SecurityUtils.getAuthenticatedUser();
 
         Task task = Task.builder()
                 .title(request.title())
@@ -40,7 +39,7 @@ public class TaskService {
     }
 
     public Page<TaskResponse> getAll(Pageable pageable) {
-        User user = getAuthenticadedUser();
+        User user = SecurityUtils.getAuthenticatedUser();
 
         Page<Task> tasksByUser = taskRepository.findByUserId(user.getId(), pageable);
 
@@ -48,7 +47,7 @@ public class TaskService {
     }
 
     public TaskResponse getById(Long id) {
-        User user = getAuthenticadedUser();
+        User user = SecurityUtils.getAuthenticatedUser();
 
         Task task = findTaskByIdAndUser(id, user);
 
@@ -56,7 +55,7 @@ public class TaskService {
     }
 
     public TaskResponse update(Long id, TaskUpdateRequest updateRequest) {
-        User user = getAuthenticadedUser();
+        User user = SecurityUtils.getAuthenticatedUser();
 
         Task task = findTaskByIdAndUser(id, user);
 
@@ -77,7 +76,7 @@ public class TaskService {
     }
 
     public void delete(Long id) {
-        User user = getAuthenticadedUser();
+        User user = SecurityUtils.getAuthenticatedUser();
         Task task = findTaskByIdAndUser(id, user);
         taskRepository.delete(task);
     }
@@ -91,16 +90,5 @@ public class TaskService {
         }
 
         return task;
-    }
-
-    private User getAuthenticadedUser() {
-        Object principal = SecurityContextHolder
-                .getContext().getAuthentication().getPrincipal();
-
-        if (!(principal instanceof User user)) {
-            throw new CustomSecurityException();
-        }
-
-        return user;
     }
 }

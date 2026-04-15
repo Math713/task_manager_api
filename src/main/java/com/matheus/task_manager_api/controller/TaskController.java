@@ -45,7 +45,7 @@ public class TaskController {
             @ApiResponse(responseCode = "401", description = "Unauthorized")
     })
     public ResponseEntity<Page<TaskResponse>> getAllTasks(
-            @PageableDefault(size = 10, sort = "created_at", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         return ResponseEntity.ok(taskService.getAll(pageable));
     }
