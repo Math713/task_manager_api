@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 
 @Schema(description = "Data required to request a login")
 public record LoginRequest(
-    @Schema(description = "User email", example = "joao@gmail.com")
+    @Schema(description = "User email", example = "caio@gmail.com")
     @NotBlank(message = "email is required")
     @Email(message = "invalid email format")
     String email,
