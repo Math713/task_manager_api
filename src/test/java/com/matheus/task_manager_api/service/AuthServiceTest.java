@@ -142,6 +142,7 @@ public class AuthServiceTest {
 
             // Assert
             assertNotNull(response);
+            assertEquals("accessToken", response.accessToken());
             assertEquals("refreshToken", response.refreshToken());
         }
 

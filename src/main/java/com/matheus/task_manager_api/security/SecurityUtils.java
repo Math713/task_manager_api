@@ -3,9 +3,7 @@ package com.matheus.task_manager_api.security;
 import com.matheus.task_manager_api.entity.User;
 import com.matheus.task_manager_api.exception.CustomSecurityException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
 
-@Component
 public class SecurityUtils {
     public static User getAuthenticatedUser() {
         Object principal = SecurityContextHolder
