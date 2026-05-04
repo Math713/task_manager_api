@@ -151,6 +151,5 @@ Java 21 · Spring Boot 3 · Spring Security · JWT (JJWT 0.12.3) · Spring Data 
 
 ## Roadmap
 
-- [ ] Unit and integration tests
 - [ ] Docker + Docker Compose
 - [ ] Deploy
