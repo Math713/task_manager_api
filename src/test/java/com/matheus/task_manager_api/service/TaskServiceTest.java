@@ -101,7 +101,7 @@ public class TaskServiceTest {
 
     @Nested
     class GetAllTasksTests {
-        // Happy path for Get All Tasks
+
         @Test
         void shouldReturnPageOfTasksForAuthenticatedUser() {
             try (MockedStatic<SecurityUtils> mocked = mockStatic(SecurityUtils.class)) {
