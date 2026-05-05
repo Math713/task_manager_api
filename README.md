@@ -5,6 +5,8 @@
 ![Spring Security](https://img.shields.io/badge/Spring%20Security-JWT-green?style=flat-square&logo=springsecurity)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue?style=flat-square&logo=postgresql)
 ![Swagger](https://img.shields.io/badge/Swagger-OpenAPI-85EA2D?style=flat-square&logo=swagger)
+![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker)
+![JUnit 5](https://img.shields.io/badge/JUnit-5-blue?style=flat-square&logo=junit5)
 ![Maven](https://img.shields.io/badge/Maven-3.8+-red?style=flat-square&logo=apachemaven)
 
 A RESTful API for task management with JWT-based authentication, role-based access control, and full CRUD operations. Built as a personal learning project to deepen knowledge of Spring Security before applying it to a larger academic project.
@@ -20,10 +22,42 @@ A RESTful API for task management with JWT-based authentication, role-based acce
 - **Custom exception handling** — structured `ApiError` responses for all error scenarios
 - **Pagination & sorting** — all list endpoints support page, size, and sort parameters
 - **OpenAPI documentation** — fully documented via Swagger UI with Bearer auth support
+- **Unit tests** — all services covered with JUnit 5 + Mockito
+- **Docker** — multi-stage build with docker-compose and healthcheck
 
 ---
 
 ## Getting Started
+
+### Running with Docker (recommended)
+
+**Requirements:** Docker and Docker Compose
+
+```bash
+git clone https://github.com/Math713/task-manager-api.git
+cd task-manager-api
+```
+
+Create a `.env` file in the project root (see `.env.example`):
+
+```env
+DB_USERNAME=postgres
+DB_PASSWORD=your_password
+DB_NAME=task_manager
+JWT_SECRET=your_base64_encoded_secret_here
+JWT_EXPIRATION=900000
+JWT_REFRESH_EXPIRATION=604800000
+```
+
+```bash
+docker-compose up
+```
+
+No Java or PostgreSQL installation needed. Everything runs inside containers.
+
+Swagger UI → `http://localhost:8080/swagger-ui.html`
+
+---
 
 ### Running locally
 
@@ -57,6 +91,41 @@ mvn spring-boot:run
 ```
 
 Swagger UI → `http://localhost:8080/swagger-ui.html`
+
+---
+
+## Docker
+
+The project includes a multi-stage Dockerfile and a docker-compose setup that orchestrates two services:
+
+- **app** — Spring Boot application built with Maven + Eclipse Temurin 21 and run on Amazon Corretto 21
+- **db** — PostgreSQL 16
+
+The Dockerfile uses a multi-stage build: the first stage compiles the project with Maven, the second runs only the final `.jar`, keeping the image lean.
+
+The `db` service includes a `healthcheck` using `pg_isready` — the app only starts after the database is fully ready to accept connections.
+
+```bash
+docker-compose up           # start both services
+docker-compose down         # stop and remove containers
+docker-compose up --build   # rebuild image after code changes
+```
+
+---
+
+## Tests
+
+All services are covered with unit tests using JUnit 5, Mockito, and AssertJ.
+
+```bash
+mvn test
+```
+
+| Class | Tests |
+|---|---|
+| `AuthServiceTest` | register, login, refresh — happy path and error cases |
+| `TaskServiceTest` | create, getAll, getById, update, delete — including ownership validation |
+| `AdminServiceTest` | getAllUsers, getUserById, deleteUser — including self-delete and admin-delete guards |
 
 ---
 
@@ -145,11 +214,12 @@ Validation errors include a `fields` map with per-field messages.
 
 ## Tech stack
 
-Java 21 · Spring Boot 3 · Spring Security · JWT (JJWT 0.12.3) · Spring Data JPA · PostgreSQL · Hibernate · Lombok · SpringDoc OpenAPI · Maven
+Java 21 · Spring Boot 3 · Spring Security · JWT (JJWT 0.12.3) · Spring Data JPA · PostgreSQL · Hibernate · Lombok · SpringDoc OpenAPI · Docker · JUnit 5 · Mockito · AssertJ · Maven
 
 ---
 
 ## Roadmap
 
-- [ ] Docker + Docker Compose
+- [x] Unit tests
+- [x] Docker + Docker Compose
 - [ ] Deploy
