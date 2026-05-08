@@ -1,7 +1,7 @@
 # Task Manager API
 
 ![Java](https://img.shields.io/badge/Java-21-orange?style=flat-square&logo=openjdk)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.12-brightgreen?style=flat-square&logo=springboot)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.1-brightgreen?style=flat-square&logo=springboot)
 ![Spring Security](https://img.shields.io/badge/Spring%20Security-JWT-green?style=flat-square&logo=springsecurity)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue?style=flat-square&logo=postgresql)
 ![Swagger](https://img.shields.io/badge/Swagger-OpenAPI-85EA2D?style=flat-square&logo=swagger)
